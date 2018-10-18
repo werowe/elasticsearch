@@ -1,14 +1,7 @@
 from pyspark import SparkContext, SparkConf
 from pyspark.sql import SQLContext
 
-reader =spark.read.format("org.elasticsearch.spark.sql") \
-.option("es.read.metadata", "true") \
-.option("es.read.field.as.array.include", "title") \
-.option("es.read.field.as.array.include", "outlinks_unique") \
-.option("es.nodes.wan.only","true") \ 
-.option("es.port","9200") \
-.option("es.net.ssl","false") \
-.option("es.nodes", "http://localhost")
+reader =spark.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port","9200").option("es.net.ssl","false").option("es.nodes", "http://localhost")
 
 df = reader.load("schools")
 
