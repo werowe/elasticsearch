@@ -1,3 +1,14 @@
+from pyspark import SparkContext, SparkConf
+from pyspark.sql import SQLContext
+from pyspark.sql.functions import lit
+
+conf = SparkConf().setAppName("updateSchools")
+sc = SparkContext(conf=conf)
+sc.setLogLevel("INFO")
+spark = SQLContext(sc)
+
+reader = spark.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port","9200").option("es.net.ssl","false").option("es.nodes", "http://localhost")
+
 df = reader.load("school")
 df.show()
 
