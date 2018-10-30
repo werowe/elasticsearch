@@ -3,7 +3,7 @@ import random
 import hashlib
 import json
 
-url="http://172.31.46.15:9200/students" 
+url="http://172.31.46.15:9200/students/students/" 
 
 def assignClasses():
     classes=[]
@@ -33,7 +33,6 @@ def genStudent():
     m.update(bytes(json.dumps(students), 'utf-8'))
     id = m.hexdigest()
     print(students)
-
     response = requests.post(url + id, json=students)
     print(response.text)
 
