@@ -3,7 +3,7 @@ import random
 import hashlib
 import json
 
-url="http://172.31.46.15:9200/students/students/" 
+url="http://parisx:9200/universities/universities/" 
 
 def assignClasses():
     classes=[]
