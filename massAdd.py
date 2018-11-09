@@ -37,5 +37,5 @@ def genStudent():
     response = requests.post(url + id, json=students)
 
 
-for r in range(1,40000):
+for r in range(1,400):
     genStudent()
