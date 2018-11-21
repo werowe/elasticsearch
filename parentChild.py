@@ -32,16 +32,19 @@ def genSchool():
     print(school)
     response = requests.post(url + id, json=school)
     print (response.json())
-    return id
+    return school
 
 def genStudent():
     id = genSchool()
     students={}
-    students["universities_classes"] = {'name': 'students'}
+    students["universities_classes"] = genSchool()
     students["school"]=schools[random.randrange(0,3)]
     students["firstName"] = firstNames[random.randrange(0,3)]
     students["lastName"] = lastNames[random.randrange(0,3)]
     students["classes"] = assignClasses()
+    m = hashlib.sha1()
+    m.update(bytes(json.dumps(students), 'utf-8'))
+    id = m.hexdigest()
 
     print(students)
     response = requests.post(url + id, json=students)
