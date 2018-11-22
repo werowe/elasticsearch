@@ -22,9 +22,15 @@ def genclass():
     classes["grades"] = random.randrange(1,7)
     return classes
 
+def genParent(id):
+    child={}
+    child['name'] = 'students'
+    child['parent'] = id
+    return child
+
 def genSchool():
     school={}
-    school["universities_classes"] = {'name': 'universities'}
+    school["universities_students"] = {'name': 'universities'}
     school["school"]=schools[random.randrange(0,3)]
     m = hashlib.sha1()
     m.update(bytes(json.dumps(school), 'utf-8'))
@@ -32,24 +38,24 @@ def genSchool():
     print(school)
     response = requests.post(url + id, json=school)
     print (response.json())
-    return school
+    return id
 
 def genStudent():
     id = genSchool()
     students={}
-    students["universities_classes"] = genSchool()
+    students["universities_students"] = genParent(id)
     students["school"]=schools[random.randrange(0,3)]
     students["firstName"] = firstNames[random.randrange(0,3)]
     students["lastName"] = lastNames[random.randrange(0,3)]
     students["classes"] = assignClasses()
     m = hashlib.sha1()
     m.update(bytes(json.dumps(students), 'utf-8'))
-    id = m.hexdigest()
+    sid = m.hexdigest()
 
     print(students)
-    response = requests.post(url + id, json=students)
+    response = requests.post(url + sid + "?routing=1&refresh", json=students)
     print (response.json())
 
-
-for r in range(1,4):
+for r in range(1,2):
     genStudent()
+
